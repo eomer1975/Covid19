@@ -1,0 +1,40 @@
+<div id="chart-demo">
+  <dx-chart
+    [dataSource]="nationalData"
+    [title]="chartTitle"
+  >
+    <dxi-series
+      *ngFor="let serie of series"
+      [valueField]="serie.valueField"
+      [name]="serie.name"
+    ></dxi-series>
+    <dxo-common-series-settings
+      #seriesSettings
+      argumentField="data"
+      [type]="types[0]"
+    >
+    </dxo-common-series-settings>
+    <dxo-margin [bottom]="20"></dxo-margin>
+    <dxo-common-axis-settings>
+      <dxo-grid [visible]="true"></dxo-grid>
+    </dxo-common-axis-settings>
+    <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+    </dxo-legend>
+    <dxo-argument-axis>
+      <dxo-tick-interval [days]="1"></dxo-tick-interval>
+      <dxo-label format="shortDate"></dxo-label>
+    </dxo-argument-axis>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-tooltip [enabled]="true"></dxo-tooltip>
+
+    <dxo-size [height]="800" [width]="1000"> </dxo-size>
+  </dx-chart>
+  <div class="options">
+    <div class="caption">Options</div>
+    <div class="option">
+      <span>Series Type</span>
+      <dx-select-box [dataSource]="types" [(value)]="seriesSettings.type">
+      </dx-select-box>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.options {
+    padding: 20px;
+    background-color: rgba(191, 191, 191, 0.15);
+    margin-top: 20px;
+    display: flex;
+}
+
+.option {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+body .custom-item {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+body .custom-item input {
+    background-color: transparent;
+}
+
+body .dx-popup-content .custom-item {
+    padding-top: 7px;
+    padding-bottom: 8px;
+}

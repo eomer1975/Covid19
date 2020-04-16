@@ -1,0 +1,317 @@
+{
+  "rulesDirectory": [
+    "node_modules/codelyzer",
+    "./node_modules/tslint-consistent-codestyle/rules"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "**/dtos.ts"
+    ]
+  },
+  "rules": {
+    "max-line-length": [
+      true,
+      140
+    ],
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "eofline": true,
+    "no-duplicate-variable": true,
+    "no-eval": true,
+    "no-arg": true,
+    "no-internal-module": true,
+    "no-trailing-whitespace": true,
+    "no-bitwise": true,
+    "no-shadowed-variable": true,
+    "no-unused-expression": false,
+    "no-unused-variable": false,
+    "no-var-keyword": true,
+    "member-access": [
+      true,
+      "no-public"
+    ],
+    "no-debugger": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": [
+      true,
+      "always",
+      "ignore-bound-class-methods"
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "curly": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type",
+      "check-preblock"
+    ],
+    // amaterial 20190122: Bans jasmine helper functions that will prevent the CI from properly running tests.
+    "ban": [
+      true,
+      [
+        "fit"
+      ],
+      [
+        "fdescribe"
+      ],
+      [
+        "xit"
+      ],
+      [
+        "xdescribe"
+      ],
+      {
+        "name": "Object.assign",
+        "message": "Use the spread operator instead."
+      }
+    ],
+    // amaterial 20190122: Avoids inconsistent linebreak styles in source files. Forces developers to use LF linebreaks.
+    "linebreak-style": [
+      true,
+      "LF"
+    ],
+    // amaterial 20190122: Namespaces are no allowed, because of Closure compiler.
+    "no-namespace": true,
+    "jsdoc-format": [
+      true,
+      "check-multiline-start"
+    ],
+    "no-duplicate-imports": true,
+    "banana-in-box": true,
+    "contextual-life-cycle": true,
+    "decorator-not-allowed": true,
+    "no-output-on-prefix": true,
+    "templates-no-negated-async": true,
+    "use-life-cycle-interface": true,
+    "import-spacing": true,
+    "arrow-return-shorthand": true, // tslint 20190122: It’s unnecessary to include return and {} brackets in arrow lambdas. Leaving them out results in simpler and easier to read code.
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "callable-types": true,
+    "forin": true,
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "interface-over-type-literal": true,
+    "radix": true,
+    "label-position": true,
+    "no-duplicate-super": true,
+    "no-construct": true, // mfogarolli 20190122: https://stackoverflow.com/questions/4719320/new-number-vs-number
+    "no-empty": false,
+    "no-empty-interface": true,
+    "no-misused-new": true,
+    "no-non-null-assertion": true,
+    "no-string-literal": false, // mfogarolli 20190122: https://stackoverflow.com/questions/36695645/what-is-no-string-literal-rule-in-tslint
+    "no-string-throw": true,
+    "no-switch-case-fall-through": true,
+    "no-unnecessary-initializer": true,
+    "object-literal-sort-keys": false,
+    "prefer-const": true,
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "unified-signatures": true,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "ordered-imports": false,
+    "invoke-injectable": true,
+    // codelyzer
+    // ==========
+    "use-input-property-decorator": true,
+    "use-output-property-decorator": true,
+    "use-host-property-decorator": false,
+    "use-pipe-transform-interface": true,
+    "directive-selector": [
+      true,
+      "attribute",
+      "app",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "app",
+      "kebab-case"
+    ],
+    "no-input-rename": false, // codelyzer 20190122: Disallows renaming directive inputs by providing a string to the decorator.
+    "no-output-rename": true, // codelyzer 20190122: Disallows renaming directive outputs by providing a string to the decorator.
+    "component-class-suffix": true, // codelyzer 20190122: Classes decorated with @Component must have suffix “Component” (or custom) in their name.
+    "directive-class-suffix": true, // codelyzer 20190122: Classes decorated with @Directive must have suffix “Directive” (or custom) in their name.
+    // tslint-consistent-codestyle
+    // ============================
+    // mfogarolli 20191014:
+    // the following naming convention configuration has been created
+    // in order to replicate the angular material one: https://github.com/angular/components,
+    // and implemented using this plugin => https://github.com/ajafff/tslint-consistent-codestyle
+    // docs => https://github.com/ajafff/tslint-consistent-codestyle/blob/master/docs/naming-convention.md
+    "naming-convention": [
+      true,
+      // mfogarolli 20191014:
+      // forbid leading and trailing underscores and enforce camelCase on EVERY name. will be overridden by subtypes if needed
+      {
+        "type": "default",
+        "format": "camelCase",
+        "leadingUnderscore": "forbid",
+        "trailingUnderscore": "forbid"
+      },
+      // mfogarolli 20191014:
+      // require all global constants to be camelCase or UPPER_CASE
+      // all other variables and functions still need to be camelCase
+      {
+        "type": "variable",
+        "modifiers": [
+          "global",
+          "const"
+        ],
+        "format": [
+          "camelCase",
+          "UPPER_CASE"
+        ]
+      },
+      // mfogarolli 20191014:
+      // override the above format option for exported constants to allow only UPPER_CASE
+      {
+        "type": "variable",
+        "modifiers": [
+          "export",
+          "const"
+        ],
+        "format": "UPPER_CASE"
+      },
+      // mfogarolli 20191007:
+      // require exported constant variables that are initialized with functions to be camelCase
+      // functionVariable => Scope: every variable that is initialized with an arrow function or function expression
+      {
+        "type": "functionVariable",
+        "modifiers": [
+          "export",
+          "const"
+        ],
+        "format": "camelCase"
+      },
+      // mfogarolli 20191007:
+      // allow leading underscores for unused parameters, because `tsc --noUnusedParameters` will not flag underscore prefixed parameters
+      // all other rules (trailingUnderscore: forbid, format: camelCase) still apply
+      {
+        "type": "parameter",
+        "modifiers": "unused",
+        "leadingUnderscore": "allow"
+      },
+      // mfogarolli 20191014: require leading underscores for private properties and methods, all other rules still apply
+      {
+        "type": "member",
+        "modifiers": "private",
+        "leadingUnderscore": "require"
+      },
+      // mfogarolli 20191014: exclicitly disable the format check only for method toJSON
+      {
+        "type": "method",
+        "filter": "^toJSON$",
+        "format": null
+      },
+      // mfogarolli 20191014: enforce UPPER_CASE for all public static readonly(!) properties
+      {
+        "type": "property",
+        "modifiers": [
+          "public",
+          "static",
+          "const"
+        ],
+        "format": "UPPER_CASE"
+      },
+      // mfogarolli 20191007: require private constructor properties to have leading underscore
+      {
+        "type": "parameterProperty",
+        "modifiers": "private",
+        "format": "camelCase",
+        "leadingUnderscore": "require"
+      },
+      // mfogarolli 20191007: require private properties to have leading underscore
+      {
+        "type": "property",
+        "modifiers": "private",
+        "format": "camelCase",
+        "leadingUnderscore": "require"
+      },
+      // mfogarolli 20191014:
+      // enforce PascalCase for classes, interfaces, enums, etc. Remember, there are still no underscores allowed.
+      // example: enum ImportState { UNMODIFIED = 0b0, MODIFIED = 0b10, ADDED = 0b100, DELETED = 0b1000 }
+      // https://github.com/angular/components/blob/f06597715e865419a3451c9219dca35e9993b39b/src/material/schematics/ng-update/upgrade-rules/hammer-gestures-v9/import-manager.ts
+      {
+        "type": "type",
+        "format": "PascalCase"
+      },
+      // mfogarolli 20191014:
+      // enum members must be in UPPER_CASE
+      // example: export enum RippleState { FADING_IN, VISIBLE, FADING_OUT, HIDDEN }
+      // https://github.com/angular/components/blob/9eeb4b5aa0473c0815a73bfe3c2ed6164d86a3b3/src/material/core/ripple/ripple-ref.ts
+      {
+        "type": "enumMember",
+        "format": "UPPER_CASE"
+      },
+      // mfogarolli 20191014:
+      // generic type parameters must start with "T"
+      {
+        "type": "genericTypeParameter",
+        "prefix": "T"
+      }
+    ]
+  }
+}
