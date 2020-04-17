@@ -27,10 +27,16 @@
     <dxo-export [enabled]="true"></dxo-export>
     <dxo-tooltip [enabled]="true"></dxo-tooltip>
 
-    <dxo-size [height]="800 + (series.length * 10)" [width]="1000"> </dxo-size>
+    <dxo-size [height]="800 + (series.length * 10)" [width]="chartWidth"> </dxo-size>
+    <dxo-zoom-and-pan
+        valueAxis="both"
+        argumentAxis="both"
+        [dragToZoom]="true"
+        [allowMouseWheel]="true"
+        panKey="shift"
+    ></dxo-zoom-and-pan>
   </dx-chart>
   <div class="options">
-    <div class="caption">Options</div>
     <div class="option">
       <span>Series Type</span>
       <dx-select-box [dataSource]="types" [(value)]="seriesSettings.type">

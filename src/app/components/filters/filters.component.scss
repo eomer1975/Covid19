@@ -3,12 +3,18 @@
     background-color: rgba(191, 191, 191, 0.15);
     margin: 10px 0;
     display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
 }
 
 .option {
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
+    flex-basis: 20%;
+    -ms-flex: auto;
+    position: relative;
+    box-sizing: border-box;
 }
 
 body .custom-item {

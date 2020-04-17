@@ -211,4 +211,8 @@ export class MainChartComponent implements OnInit {
 
     return groupByData(d);
   }
+
+  get chartWidth(){
+    return window.innerWidth * 0.8;
+  }
 }
