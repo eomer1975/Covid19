@@ -1,13 +1,14 @@
 .options {
-    padding: 20px;
+    padding: 0 20px;
     background-color: rgba(191, 191, 191, 0.15);
-    margin-top: 20px;
+    margin: 10px 0;
     display: flex;
 }
 
 .option {
     margin-top: 10px;
     margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 body .custom-item {

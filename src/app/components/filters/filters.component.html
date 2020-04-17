@@ -1,0 +1,78 @@
+<div class="options">
+  <div class="option">
+    <span>Nazioni</span>
+    <dx-tag-box
+      [dataSource]="countries"
+      [(value)]="outputObj.countries"
+      displayExpr="name"
+      valueExpr="id"
+      [showSelectionControls]="true"
+      applyValueMode="useButtons"
+      width="250"
+      (onSelectionChanged)="onCountrySelectionChanged($event)"
+    >
+    </dx-tag-box>
+  </div>
+  <div class="option">
+    <span>Regioni</span>
+    <dx-tag-box
+      [dataSource]="regions"
+      [(value)]="outputObj.regions"
+      displayExpr="name"
+      valueExpr="id"
+      [showSelectionControls]="true"
+      applyValueMode="useButtons"
+      width="250"
+      (onSelectionChanged)="onRegionsSelectionChanged($event)"
+    >
+    </dx-tag-box>
+  </div>
+  <div class="option">
+    <span>Province</span>
+    <dx-tag-box
+      [dataSource]="zones"
+      [(value)]="outputObj.zones"
+      displayExpr="name"
+      valueExpr="id"
+      [showSelectionControls]="true"
+      applyValueMode="useButtons"
+      width="250"
+      (onSelectionChanged)="onZonesSelectionChanged($event)"
+    >
+    </dx-tag-box>
+  </div>
+</div>
+<div class="options">
+  <div class="option">
+    <span>Totale casi</span>
+    <dx-check-box
+      [(value)]="outputObj.showTotal"
+      (onValueChanged)="chbSerieTypeCHanged()"
+      [disabled]="!showTotalEnabled"
+    ></dx-check-box>
+  </div>
+  <div class="option">
+    <span>Attivi</span>
+    <dx-check-box
+      [(value)]="outputObj.showActive"
+      (onValueChanged)="chbSerieTypeCHanged()"
+      [disabled]="!showActiveEnabled"
+    ></dx-check-box>
+  </div>
+  <div class="option">
+    <span>Dimessi</span>
+    <dx-check-box
+      [(value)]="outputObj.showHealed"
+      (onValueChanged)="chbSerieTypeCHanged()"
+      [disabled]="!showHealedEnabled"
+    ></dx-check-box>
+  </div>
+  <div class="option">
+    <span>Deceduti</span>
+    <dx-check-box
+      [(value)]="outputObj.showDeads"
+      (onValueChanged)="chbSerieTypeCHanged()"
+      [disabled]="!showDeadsEnabled"
+    ></dx-check-box>
+  </div>
+</div>

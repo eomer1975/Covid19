@@ -15,6 +15,10 @@ export interface FiltersComponentOutput {
   regions: number[];
   zones: number[];
   reload: boolean;
+  showActive: boolean;
+  showTotal: boolean;
+  showDeads: boolean;
+  showHealed: boolean;
 }
 
 @Component({
@@ -29,6 +33,11 @@ export class FiltersComponent implements OnInit {
   zones: administrativeArea[];
   countries: administrativeArea[];
 
+  showActiveEnabled: boolean;
+  showTotalEnabled: boolean;
+  showDeadsEnabled: boolean;
+  showHealedEnabled: boolean;
+
   outputObj: FiltersComponentOutput;
 
   constructor() {
@@ -41,22 +50,34 @@ export class FiltersComponent implements OnInit {
     this.setRegions();
     this.setZones();
     this.outputObj.countries = [1];
+    this.outputObj.showActive = true;
+    this.outputObj.showTotal = true;
+    this.outputObj.showDeads = false;
+    this.outputObj.showHealed = false;
+    this.showActiveEnabled = true;
+    this.showTotalEnabled = true;
+    this.showDeadsEnabled = true;
+    this.showHealedEnabled = true;
   }
 
   ngOnInit() {}
 
-  onCountrySelectionChanged(e){
-    this.outputObj.countries = this.outputObj.countries;
+  onCountrySelectionChanged(e) {
     this.output.emit(this.outputObj);
+    this.setCheckboxEnabled();
   }
 
   onRegionsSelectionChanged(e) {
-    this.outputObj.regions = this.outputObj.regions;
     this.output.emit(this.outputObj);
+    this.setCheckboxEnabled();
   }
 
   onZonesSelectionChanged(e) {
-    this.outputObj.zones = this.outputObj.zones;
+    this.output.emit(this.outputObj);
+    this.setCheckboxEnabled();
+  }
+
+  chbSerieTypeCHanged() {
     this.output.emit(this.outputObj);
   }
 
@@ -68,6 +89,18 @@ export class FiltersComponent implements OnInit {
       return 1;
     }
     return 0;
+  }
+
+  private setCheckboxEnabled() {
+    const hasCountresOrRegion =
+      !!(this.outputObj.countries && this.outputObj.countries.length) ||
+      !!(this.outputObj.regions && this.outputObj.regions.length);
+    this.showActiveEnabled = hasCountresOrRegion;
+    this.showTotalEnabled = hasCountresOrRegion;
+    this.showDeadsEnabled = hasCountresOrRegion;
+    this.showHealedEnabled = hasCountresOrRegion;
+
+    !hasCountresOrRegion && (this.showTotalEnabled = true);
   }
 
   private setCountries() {

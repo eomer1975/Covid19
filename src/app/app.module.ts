@@ -3,13 +3,14 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { MainChartComponent } from "./main-chart/main-chart.component";
-import { FiltersComponent } from "./filters/filters.component";
+import { MainChartComponent } from "./components/main-chart/main-chart.component";
+import { FiltersComponent } from "./components/filters/filters.component";
 import { HttpClientModule } from "@angular/common/http";
-import { DxChartModule, DxSelectBoxModule, DxTemplateModule, DxTagBoxModule } from 'devextreme-angular';
+import { DxChartModule, DxSelectBoxModule, DxTemplateModule, DxTagBoxModule, DxCheckBoxModule } from 'devextreme-angular';
+import { MainChartVisualizerComponent } from './components/main-chart-visualizer/main-chart-visualizer.component';
 
 @NgModule({
-  declarations: [AppComponent, MainChartComponent, FiltersComponent],
+  declarations: [AppComponent, MainChartComponent, FiltersComponent, MainChartVisualizerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -17,7 +18,8 @@ import { DxChartModule, DxSelectBoxModule, DxTemplateModule, DxTagBoxModule } fr
     DxChartModule,
     DxSelectBoxModule,
     DxTemplateModule,
-    DxTagBoxModule
+    DxTagBoxModule,
+    DxCheckBoxModule
   ],
   providers: [],
   bootstrap: [AppComponent],
