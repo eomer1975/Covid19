@@ -76,3 +76,13 @@
     ></dx-check-box>
   </div>
 </div>
+<div class="options">
+  <div class="option">
+    <span>Data inizio</span>
+    <dx-date-box [(value)]="outputObj.dateFrom" type="date" (onValueChanged)="dateChanged($event)"> </dx-date-box>
+  </div>
+  <div class="option">
+    <span>Data fine</span>
+    <dx-date-box [(value)]="outputObj.dateTo" type="date" (onValueChanged)="dateChanged($event)"> </dx-date-box>
+  </div>
+</div>

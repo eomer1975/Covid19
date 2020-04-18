@@ -1,6 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MainService } from "../../../services/main.service";
-import { NationData, RegionData, ZoneData, DataBase } from "../../../models/data";
+import {
+  NationData,
+  RegionData,
+  ZoneData,
+  DataBase,
+} from "../../../models/data";
 import { ThrowStmt } from "@angular/compiler";
 
 interface Serie {
@@ -21,6 +26,8 @@ export interface MainChartComponentInput {
   showTotal: boolean;
   showDeads: boolean;
   showHealed: boolean;
+  dateFrom: Date;
+  dateTo: Date;
 }
 
 @Component({
@@ -39,12 +46,17 @@ export class MainChartComponent implements OnInit {
   showDeads: boolean;
   showHealed: boolean;
 
+  dateFrom: Date;
+  dateTo: Date;
+
   @Input()
   set input(i: MainChartComponentInput) {
     this.showActive = i.showActive;
     this.showTotal = i.showTotal;
     this.showDeads = i.showDeads;
     this.showHealed = i.showHealed;
+    this.dateFrom = i.dateFrom;
+    this.dateTo = i.dateTo;
     this.loadData(i);
   }
 
@@ -72,7 +84,20 @@ export class MainChartComponent implements OnInit {
   getNationalData() {
     this.service.getDatiNazionale().then((d) => {
       this.nationalData = d;
+      this.dateFrom &&
+        (this.nationalData = this.nationalData.filter(
+          (x) =>
+            this.confrontDates(new Date(x.data), new Date(this.dateFrom)) >= 0
+        ));
       this.series = [];
+
+      this.dateTo &&
+        (this.nationalData = this.nationalData.filter(
+          (x) =>
+            this.confrontDates(new Date(x.data), new Date(this.dateTo)) <= 0
+        ));
+      this.series = [];
+
       this.showActive &&
         this.series.push({
           name: "totale positivi",
@@ -117,77 +142,87 @@ export class MainChartComponent implements OnInit {
     const dataAppo = [];
     // tslint:disable-next-line: forin
     for (const data in datag) {
-      var item = {};
-      const values = datag[data];
-      values.forEach((value) => {
-        let actives = "";
-        let total = "";
-        let healed = "";
-        let deads = "";
-        if (value.type === "r") {
-          const vt = value as RegionData;
-          item["data"] = new Date(data);
-          actives = this.totaleActives + "_" + vt.denominazione_regione;
-          total = this.totaleCases + "_" + vt.denominazione_regione;
-          healed = this.totaleHealed + "_" + vt.denominazione_regione;
-          deads = this.totaleDeads + "_" + vt.denominazione_regione;
-          item[actives] = vt.totale_positivi;
-          item[total] = vt.totale_casi;
-          item[healed] = vt.dimessi_guariti;
-          item[deads] = vt.deceduti;
-        }
+      const dateAppo = new Date(data);
+      if (
+        (this.dateFrom &&
+          this.confrontDates(dateAppo, new Date(this.dateFrom)) >= 0) ||
+        true ||
+        (this.dateTo &&
+          this.confrontDates(dateAppo, new Date(this.dateTo)) <= 0) ||
+        true
+      ) {
+        var item = {};
+        const values = datag[data];
+        values.forEach((value) => {
+          let actives = "";
+          let total = "";
+          let healed = "";
+          let deads = "";
+          if (value.type === "r") {
+            const vt = value as RegionData;
+            item["data"] = new Date(data);
+            actives = this.totaleActives + "_" + vt.denominazione_regione;
+            total = this.totaleCases + "_" + vt.denominazione_regione;
+            healed = this.totaleHealed + "_" + vt.denominazione_regione;
+            deads = this.totaleDeads + "_" + vt.denominazione_regione;
+            item[actives] = vt.totale_positivi;
+            item[total] = vt.totale_casi;
+            item[healed] = vt.dimessi_guariti;
+            item[deads] = vt.deceduti;
+          }
 
-        if (value.type === "z") {
-          const vt = value as ZoneData;
-          item["data"] = data;
-          total = this.totaleCases + "_" + vt.denominazione_provincia;
-          item[total] = vt.totale_casi;
-        }
+          if (value.type === "z") {
+            const vt = value as ZoneData;
+            item["data"] = data;
+            total = this.totaleCases + "_" + vt.denominazione_provincia;
+            item[total] = vt.totale_casi;
+          }
 
-        if (
-          this.showActive &&
-          actives &&
-          !seriesAppo.find((s) => s.valueField === actives)
-        ) {
-          seriesAppo.push({
-            name: actives,
-            valueField: actives,
-          });
-        }
+          if (
+            this.showActive &&
+            actives &&
+            !seriesAppo.find((s) => s.valueField === actives)
+          ) {
+            seriesAppo.push({
+              name: actives,
+              valueField: actives,
+            });
+          }
 
-        if (
-          this.showTotal &&
-          total &&
-          !seriesAppo.find((s) => s.valueField === total)
-        ) {
-          seriesAppo.push({
-            name: total,
-            valueField: total,
-          });
-        }
+          if (
+            this.showTotal &&
+            total &&
+            !seriesAppo.find((s) => s.valueField === total)
+          ) {
+            seriesAppo.push({
+              name: total,
+              valueField: total,
+            });
+          }
 
-        if (
-          this.showHealed &&
-          healed &&
-          !seriesAppo.find((s) => s.valueField === healed)
-        ) {
-          seriesAppo.push({
-            name: healed,
-            valueField: healed,
-          });
-        }
+          if (
+            this.showHealed &&
+            healed &&
+            !seriesAppo.find((s) => s.valueField === healed)
+          ) {
+            seriesAppo.push({
+              name: healed,
+              valueField: healed,
+            });
+          }
 
-        if (
-          this.showDeads &&
-          deads &&
-          !seriesAppo.find((s) => s.valueField === deads)
-        ) {
-          seriesAppo.push({
-            name: deads,
-            valueField: deads,
-          });
-        }
-      });
+          if (
+            this.showDeads &&
+            deads &&
+            !seriesAppo.find((s) => s.valueField === deads)
+          ) {
+            seriesAppo.push({
+              name: deads,
+              valueField: deads,
+            });
+          }
+        });
+      }
       dataAppo.push(item);
     }
 
@@ -212,7 +247,26 @@ export class MainChartComponent implements OnInit {
     return groupByData(d);
   }
 
-  get chartWidth(){
+  get chartWidth() {
     return window.innerWidth * 0.8;
+  }
+
+  confrontDates(date1: Date, date2: Date) {
+    const dateAppo1 = new Date(
+      date1.getFullYear(),
+      date1.getMonth(),
+      date1.getDate()
+    ).getTime();
+    const dateAppo2 = new Date(
+      date2.getFullYear(),
+      date2.getMonth(),
+      date2.getDate()
+    ).getTime();
+    let res = -1;
+    if (dateAppo1 === dateAppo2) res = 0;
+    if (dateAppo1 > dateAppo2) res = 1;
+
+    console.log(date1, date2, res);
+    return res;
   }
 }

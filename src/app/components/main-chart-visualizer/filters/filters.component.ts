@@ -19,6 +19,8 @@ export interface FiltersComponentOutput {
   showTotal: boolean;
   showDeads: boolean;
   showHealed: boolean;
+  dateFrom: Date;
+  dateTo: Date;
 }
 
 @Component({
@@ -78,6 +80,10 @@ export class FiltersComponent implements OnInit {
   }
 
   chbSerieTypeCHanged() {
+    this.output.emit(this.outputObj);
+  }
+
+  dateChanged(e) {
     this.output.emit(this.outputObj);
   }
 
