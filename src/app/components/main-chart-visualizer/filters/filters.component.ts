@@ -42,6 +42,9 @@ export class FiltersComponent implements OnInit {
 
   outputObj: FiltersComponentOutput;
 
+  dateMin: Date;
+  dateMax: Date;
+
   constructor() {
     this.output = new EventEmitter<FiltersComponentOutput>();
     this.regions = [];
@@ -60,6 +63,8 @@ export class FiltersComponent implements OnInit {
     this.showTotalEnabled = true;
     this.showDeadsEnabled = true;
     this.showHealedEnabled = true;
+    this.dateMin=new Date(2020,1,1);
+    this.dateMax=new Date();
   }
 
   ngOnInit() {}
@@ -85,6 +90,10 @@ export class FiltersComponent implements OnInit {
 
   dateChanged(e) {
     this.output.emit(this.outputObj);
+  }
+  resetDates(e){
+    this.outputObj.dateFrom=null;
+    this.outputObj.dateTo=null;
   }
 
   private compare(a, b) {

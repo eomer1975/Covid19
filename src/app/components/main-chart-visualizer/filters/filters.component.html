@@ -79,10 +79,37 @@
 <div class="options">
   <div class="option">
     <span>Data inizio</span>
-    <dx-date-box [(value)]="outputObj.dateFrom" type="date" (onValueChanged)="dateChanged($event)"> </dx-date-box>
+    <dx-date-box
+      [(value)]="outputObj.dateFrom"
+      [max]="outputObj.dateTo || dateMax"
+      [min]="dateMin"
+      type="date"
+      (onValueChanged)="dateChanged($event)"
+      [displayFormat]="'dd/MM/yyyy'"
+    >
+    </dx-date-box>
   </div>
   <div class="option">
     <span>Data fine</span>
-    <dx-date-box [(value)]="outputObj.dateTo" type="date" (onValueChanged)="dateChanged($event)"> </dx-date-box>
+    <dx-date-box
+      [(value)]="outputObj.dateTo"
+      [min]="outputObj.dateFrom || dateMin"
+      [max]="dateMax"
+      type="date"
+      (onValueChanged)="dateChanged($event)"
+      [displayFormat]="'dd/MM/yyyy'"
+    >
+    </dx-date-box>
+  </div>
+
+  <div class="option">
+    <span>&nbsp;</span>
+    <dx-button
+      type="success"
+      text="Reset"
+      [width]="300"
+      (onClick)="resetDates($event)"
+    >
+    </dx-button>
   </div>
 </div>

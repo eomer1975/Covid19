@@ -22,7 +22,7 @@
     </dxo-legend>
     <dxo-argument-axis>
       <dxo-tick-interval [days]="1"></dxo-tick-interval>
-      <dxo-label format="shortDate"></dxo-label>
+      <dxo-label format="dd/MM/yyyy"></dxo-label>
     </dxo-argument-axis>
     <dxo-export [enabled]="true"></dxo-export>
     <dxo-tooltip [enabled]="true"></dxo-tooltip>
@@ -32,10 +32,9 @@
         valueAxis="both"
         argumentAxis="both"
         [dragToZoom]="true"
-        [allowMouseWheel]="true"
+        [allowMouseWheel]="false"
         panKey="shift"
     ></dxo-zoom-and-pan>
-    <dxo-scroll-bar [visible]="true"></dxo-scroll-bar>
   </dx-chart>
   <div class="options">
     <div class="option">

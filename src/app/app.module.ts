@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 import { MainChartComponent } from "./components/main-chart-visualizer/main-chart/main-chart.component";
 import { FiltersComponent } from "./components/main-chart-visualizer/filters/filters.component";
 import { HttpClientModule } from "@angular/common/http";
-import { DxChartModule, DxSelectBoxModule, DxTemplateModule, DxTagBoxModule, DxCheckBoxModule, DxResponsiveBoxModule, DxDateBoxModule } from 'devextreme-angular';
+import { DxChartModule, DxSelectBoxModule, DxTemplateModule, DxTagBoxModule, DxCheckBoxModule, DxResponsiveBoxModule, DxDateBoxModule, DxButtonModule } from 'devextreme-angular';
 import { MainChartVisualizerComponent } from './components/main-chart-visualizer/main-chart-visualizer.component';
 import { LegalNotesComponent } from './components/legal-notes/legal-notes.component';
 
@@ -22,7 +22,7 @@ import { LegalNotesComponent } from './components/legal-notes/legal-notes.compon
     DxTagBoxModule,
     DxCheckBoxModule,
     DxDateBoxModule,
-    DxResponsiveBoxModule
+    DxButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
