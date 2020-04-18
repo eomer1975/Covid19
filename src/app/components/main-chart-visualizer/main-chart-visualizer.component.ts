@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MainChartComponentInput } from '../main-chart/main-chart.component';
-import { FiltersComponentOutput } from '../filters/filters.component';
+import { MainChartComponentInput } from './main-chart/main-chart.component';
+import { FiltersComponentOutput } from './filters/filters.component';
 
 @Component({
   selector: 'app-main-chart-visualizer',

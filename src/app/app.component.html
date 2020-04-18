@@ -1,23 +1,16 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <span>CoViD Chart Generator (v0.2)</span>
+  <a [routerLink]="['']">CoViD Chart Generator (v0.2.5)</a>
   <div class="spacer"></div>
 </div>
 
 <div class="content" role="main">
-  <app-main-chart-visualizer></app-main-chart-visualizer>
+  <router-outlet></router-outlet>
 
   <!-- Footer -->
-  <footer></footer>
+  <footer>
+    <a [routerLink]="['legal']">Note legali</a>
+  </footer>
 
   <svg
     id="clouds"
@@ -37,12 +30,3 @@
   </svg>
 </div>
 
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<router-outlet></router-outlet>

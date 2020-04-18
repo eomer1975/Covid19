@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { MainService } from "../../services/main.service";
-import { NationData, RegionData, ZoneData, DataBase } from "../../models/data";
+import { MainService } from "../../../services/main.service";
+import { NationData, RegionData, ZoneData, DataBase } from "../../../models/data";
 import { ThrowStmt } from "@angular/compiler";
 
 interface Serie {
