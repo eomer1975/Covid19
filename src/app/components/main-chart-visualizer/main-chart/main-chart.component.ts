@@ -121,12 +121,12 @@ export class MainChartComponent implements OnInit {
           name: "deceduti",
           valueField: this.totaleDeads,
         });
-        
+
       this.showSwabs &&
-      this.series.push({
-        name: "tamponi",
-        valueField: this.totaleSwabs,
-      });
+        this.series.push({
+          name: "tamponi",
+          valueField: this.totaleSwabs,
+        });
     });
   }
 
@@ -190,7 +190,7 @@ export class MainChartComponent implements OnInit {
           total = this.totaleCases + "_" + vt.denominazione_regione;
           healed = this.totaleHealed + "_" + vt.denominazione_regione;
           deads = this.totaleDeads + "_" + vt.denominazione_regione;
-          swabs = this.totaleSwabs + "_" + vt.tamponi;
+          swabs = this.totaleSwabs + "_" + vt.denominazione_regione;
           item[actives] = vt.totale_positivi;
           item[total] = vt.totale_casi;
           item[healed] = vt.dimessi_guariti;
@@ -249,7 +249,6 @@ export class MainChartComponent implements OnInit {
           });
         }
 
-        
         if (
           this.showSwabs &&
           deads &&
