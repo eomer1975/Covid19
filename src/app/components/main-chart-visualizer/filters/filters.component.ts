@@ -19,6 +19,7 @@ export interface FiltersComponentOutput {
   showTotal: boolean;
   showDeads: boolean;
   showHealed: boolean;
+  showSwabs: boolean;
   dateFrom: Date;
   dateTo: Date;
 }
@@ -39,6 +40,7 @@ export class FiltersComponent implements OnInit {
   showTotalEnabled: boolean;
   showDeadsEnabled: boolean;
   showHealedEnabled: boolean;
+  showSwabsEnabled: boolean;
 
   outputObj: FiltersComponentOutput;
 
@@ -59,10 +61,12 @@ export class FiltersComponent implements OnInit {
     this.outputObj.showTotal = true;
     this.outputObj.showDeads = false;
     this.outputObj.showHealed = false;
+    this.outputObj.showSwabs = false;
     this.showActiveEnabled = true;
     this.showTotalEnabled = true;
-    this.showDeadsEnabled = true;
-    this.showHealedEnabled = true;
+    this.showDeadsEnabled = false;
+    this.showHealedEnabled = false;
+    this.showSwabsEnabled = false;
     this.dateMin=new Date(2020,1,1);
     this.dateMax=new Date();
   }
@@ -114,6 +118,7 @@ export class FiltersComponent implements OnInit {
     this.showTotalEnabled = hasCountresOrRegion;
     this.showDeadsEnabled = hasCountresOrRegion;
     this.showHealedEnabled = hasCountresOrRegion;
+    this.showSwabsEnabled = hasCountresOrRegion;
 
     !hasCountresOrRegion && (this.showTotalEnabled = true);
   }

@@ -26,6 +26,7 @@ export interface MainChartComponentInput {
   showTotal: boolean;
   showDeads: boolean;
   showHealed: boolean;
+  showSwabs: boolean;
   dateFrom: Date;
   dateTo: Date;
 }
@@ -45,6 +46,7 @@ export class MainChartComponent implements OnInit {
   showTotal: boolean;
   showDeads: boolean;
   showHealed: boolean;
+  showSwabs: boolean;
 
   dateFrom: Date;
   dateTo: Date;
@@ -55,6 +57,7 @@ export class MainChartComponent implements OnInit {
     this.showTotal = i.showTotal;
     this.showDeads = i.showDeads;
     this.showHealed = i.showHealed;
+    this.showSwabs = i.showSwabs;
     this.dateFrom = i.dateFrom;
     this.dateTo = i.dateTo;
     this.loadData(i);
@@ -80,6 +83,7 @@ export class MainChartComponent implements OnInit {
   readonly totaleCases = "totale_casi";
   readonly totaleHealed = "dimessi_guariti";
   readonly totaleDeads = "deceduti";
+  readonly totaleSwabs = "tamponi";
 
   getNationalData() {
     this.service.getDatiNazionale().then((d) => {
@@ -117,6 +121,12 @@ export class MainChartComponent implements OnInit {
           name: "deceduti",
           valueField: this.totaleDeads,
         });
+        
+      this.showSwabs &&
+      this.series.push({
+        name: "tamponi",
+        valueField: this.totaleSwabs,
+      });
     });
   }
 
@@ -172,6 +182,7 @@ export class MainChartComponent implements OnInit {
         let total = "";
         let healed = "";
         let deads = "";
+        let swabs = "";
         if (value.type === "r") {
           const vt = value as RegionData;
           item["data"] = new Date(data);
@@ -179,10 +190,12 @@ export class MainChartComponent implements OnInit {
           total = this.totaleCases + "_" + vt.denominazione_regione;
           healed = this.totaleHealed + "_" + vt.denominazione_regione;
           deads = this.totaleDeads + "_" + vt.denominazione_regione;
+          swabs = this.totaleSwabs + "_" + vt.tamponi;
           item[actives] = vt.totale_positivi;
           item[total] = vt.totale_casi;
           item[healed] = vt.dimessi_guariti;
           item[deads] = vt.deceduti;
+          item[swabs] = vt.tamponi;
         }
 
         if (value.type === "z") {
@@ -233,6 +246,18 @@ export class MainChartComponent implements OnInit {
           seriesAppo.push({
             name: deads,
             valueField: deads,
+          });
+        }
+
+        
+        if (
+          this.showSwabs &&
+          deads &&
+          !seriesAppo.find((s) => s.valueField === swabs)
+        ) {
+          seriesAppo.push({
+            name: swabs,
+            valueField: swabs,
           });
         }
       });

@@ -75,6 +75,15 @@
       [disabled]="!showDeadsEnabled"
     ></dx-check-box>
   </div>
+  
+  <div class="option">
+    <span>Tamponi</span>
+    <dx-check-box
+      [(value)]="outputObj.showSwabs"
+      (onValueChanged)="chbSerieTypeCHanged()"
+      [disabled]="!showSwabsEnabled"
+    ></dx-check-box>
+  </div>
 </div>
 <div class="options">
   <div class="option">
@@ -84,6 +93,7 @@
       [max]="outputObj.dateTo || dateMax"
       [min]="dateMin"
       type="date"
+      [width]="300"
       (onValueChanged)="dateChanged($event)"
       [displayFormat]="'dd/MM/yyyy'"
     >
@@ -96,6 +106,7 @@
       [min]="outputObj.dateFrom || dateMin"
       [max]="dateMax"
       type="date"
+      [width]="300"
       (onValueChanged)="dateChanged($event)"
       [displayFormat]="'dd/MM/yyyy'"
     >
@@ -106,7 +117,7 @@
     <span>&nbsp;</span>
     <dx-button
       type="success"
-      text="Reset"
+      text="Pulisci le date"
       [width]="300"
       (onClick)="resetDates($event)"
     >
