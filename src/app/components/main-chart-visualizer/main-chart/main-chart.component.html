@@ -1,8 +1,5 @@
 <div id="chart-demo">
-  <dx-chart
-    [dataSource]="nationalData"
-    [title]="chartTitle"
-  >
+  <dx-chart [dataSource]="nationalData" [title]="chartTitle">
     <dxi-series
       *ngFor="let serie of series"
       [valueField]="serie.valueField"
@@ -25,18 +22,69 @@
       <dxo-label format="dd/MM/yyyy"></dxo-label>
     </dxo-argument-axis>
     <dxo-export [enabled]="true"></dxo-export>
-    <dxo-tooltip [enabled]="true"></dxo-tooltip>
+    <dxo-tooltip [enabled]="true" contentTemplate="content"> </dxo-tooltip>
+    <div *dxTemplate="let info of 'content'" class="state-tooltip">
+      <h4>{{ info.point.data.data }}</h4>
+      <div *ngIf="info.point.data.type === 'z'" class="data-zone">
+        <div>
+          denominazione_regione {{ info.point.data.denominazione_regione }}
+        </div>
+        <div>
+          denominazione_provincia {{ info.point.data.denominazione_provincia }}
+        </div>
+        <div>sigla_provincia {{ info.point.data.sigla_provincia }}</div>
+      </div>
 
-    <dxo-size [height]="800 + (series.length * 10)" [width]="chartWidth"> </dxo-size>
+      <div *ngIf="info && info.point.data.type === 'r'" class="data-zone">
+        <div>
+          denominazione_regione {{ info.point.data.denominazione_regione }}
+        </div>
+      </div>
+
+      <div class="data-table">
+        <div>totale_casi: {{ info.point.data.totale_casi }}</div>
+        <div>nuovi_positivi: {{ info.point.data.nuovi_positivi }}</div>
+      </div>
+      <div *ngIf="info && info.point.data.type !== 'z'" class="data-table">
+        <div>totale_positivi: {{ info.point.data.totale_positivi }}</div>
+        <div>
+          variazione_totale_positivi
+         : {{ info.point.data.variazione_totale_positivi }}
+        </div>
+        <div>
+          totale_ospedalizzati: {{ info.point.data.totale_ospedalizzati }}
+        </div>
+        <div>&nbsp;</div>
+        <div>
+          ricoverati_con_sintomi: {{ info.point.data.ricoverati_con_sintomi }}
+        </div>
+        <div>terapia_intensiva: {{ info.point.data.terapia_intensiva }}</div>
+        <div>
+          isolamento_domiciliare }{{ info.point.data.isolamento_domiciliare }}
+        </div>
+        <div></div>
+        <div>dimessi_guariti: {{ info.point.data.dimessi_guariti }}</div>
+        <div>deceduti: {{ info.point.data.deceduti }}</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>tamponi: {{ info.point.data.tamponi }}</div>
+      </div>
+      
+      <div *ngIf="info && info.point.data.note_it">
+        note_it: {{ getNote(info.point.data.note_it) }}
+      </div>
+    </div>
+    <dxo-size [height]="800 + series.length * 10" [width]="chartWidth">
+    </dxo-size>
     <dxo-zoom-and-pan
-        valueAxis="both"
-        argumentAxis="both"
-        [dragToZoom]="true"
-        [allowMouseWheel]="false"
-        panKey="shift"
+      valueAxis="both"
+      argumentAxis="both"
+      [dragToZoom]="true"
+      [allowMouseWheel]="false"
+      panKey="shift"
     ></dxo-zoom-and-pan>
   </dx-chart>
-  <div class="options">
+  <div class="options" *ngIf="false">
     <div class="option">
       <span>Series Type</span>
       <dx-select-box [dataSource]="types" [(value)]="seriesSettings.type">

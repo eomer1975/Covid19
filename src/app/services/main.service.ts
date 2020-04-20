@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ServiceBase } from "../commons/service.base/service-base.service";
 import { HttpClient } from "@angular/common/http";
-import { NationData, ZoneData, RegionData } from "../models/data";
+import { NationData, ZoneData, RegionData, Note } from "../models/data";
 import { DataConfig } from "../commons/data-config";
 
 @Injectable({
@@ -59,6 +59,22 @@ export class MainService extends ServiceBase {
         .then((response: RegionData[]) => {
           const data = response;
           data.forEach((d) => (d.type = "r"));
+          resolve(data);
+        })
+        .catch((ex) => {
+          console.log("call failed", ex);
+          reject(ex);
+        });
+    });
+  }
+
+  getNote(): Promise<Note[]> {
+    const promise = super.get(DataConfig.datiNote, "GET", this.headers);
+
+    return new Promise((resolve, reject) => {
+      promise
+        .then((response: Note[]) => {
+          const data = response;
           resolve(data);
         })
         .catch((ex) => {

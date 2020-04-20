@@ -5,6 +5,7 @@ import {
   RegionData,
   ZoneData,
   DataBase,
+  Note,
 } from "../../../models/data";
 import { ThrowStmt } from "@angular/compiler";
 
@@ -39,6 +40,7 @@ export interface MainChartComponentInput {
 export class MainChartComponent implements OnInit {
   types: string[] = ["spline", "stackedspline", "fullstackedspline"];
   nationalData: (NationData | RegionData | ZoneData)[];
+  notes: Note[];
   chartTitle: string;
   series: Serie[];
 
@@ -70,7 +72,14 @@ export class MainChartComponent implements OnInit {
 
   ngOnInit() {}
 
+  loadNotes() {
+    this.service.getNote().then((d) => {
+      this.notes = d;
+    });
+  }
+
   loadData(i: MainChartComponentInput) {
+    this.loadNotes();
     (i.regions || i.zones) && (this.chartTitle = "Dati CoViD per zone");
     i.countries && i.countries.length && this.getNationalData();
     (i.regions || i.zones) && (this.nationalData = []);
@@ -87,6 +96,24 @@ export class MainChartComponent implements OnInit {
 
   getNationalData() {
     this.service.getDatiNazionale().then((d) => {
+      let actives = "";
+      let total = "";
+      let healed = "";
+      let deads = "";
+      let swabs = "";
+      d.forEach((vt) => {
+        actives = this.totaleActives + "_" + vt.stato;
+        total = this.totaleCases + "_" + vt.stato;
+        healed = this.totaleHealed + "_" + vt.stato;
+        deads = this.totaleDeads + "_" + vt.stato;
+        swabs = this.totaleSwabs + "_" + vt.stato;
+        vt[actives] = vt.totale_positivi;
+        vt[total] = vt.totale_casi;
+        vt[healed] = vt.dimessi_guariti;
+        vt[deads] = vt.deceduti;
+        vt[swabs] = vt.tamponi;
+      });
+
       this.nationalData = d;
       this.dateFrom &&
         (this.nationalData = this.nationalData.filter(
@@ -104,28 +131,28 @@ export class MainChartComponent implements OnInit {
       this.showActive &&
         this.series.push({
           name: "totale positivi",
-          valueField: this.totaleActives,
+          valueField: actives,
         });
       this.showTotal &&
         this.series.push({
           name: "totale casi",
-          valueField: this.totaleCases,
+          valueField: total,
         });
       this.showHealed &&
         this.series.push({
           name: "dimessi_guariti",
-          valueField: this.totaleHealed,
+          valueField: healed,
         });
       this.showDeads &&
         this.series.push({
           name: "deceduti",
-          valueField: this.totaleDeads,
+          valueField: deads,
         });
 
       this.showSwabs &&
         this.series.push({
           name: "tamponi",
-          valueField: this.totaleSwabs,
+          valueField: swabs,
         });
     });
   }
@@ -196,6 +223,12 @@ export class MainChartComponent implements OnInit {
           item[healed] = vt.dimessi_guariti;
           item[deads] = vt.deceduti;
           item[swabs] = vt.tamponi;
+          Object.assign(item, vt);
+          // item["isolamento_domiciliare"] = vt.isolamento_domiciliare;
+          // item["terapia_intensiva"] = vt.terapia_intensiva;
+          // item["totale_ospedalizzati"] = vt.totale_ospedalizzati;
+          // item["variazione_totale_positivi"] = vt.variazione_totale_positivi;
+          // item["nuovi_positivi"] = vt.nuovi_positivi;
         }
 
         if (value.type === "z") {
@@ -203,6 +236,7 @@ export class MainChartComponent implements OnInit {
           item["data"] = data;
           total = this.totaleCases + "_" + vt.denominazione_provincia;
           item[total] = vt.totale_casi;
+          Object.assign(item, vt);
         }
 
         if (
@@ -306,5 +340,13 @@ export class MainChartComponent implements OnInit {
 
     console.log(date1, date2, res);
     return res;
+  }
+
+  getNote(id: string) {
+    const n = this.notes.find((x) => x.codice === id);
+    if (!n) {
+      return id;
+    }
+    return n.note + " (" + n.tipologia_avviso + ")";
   }
 }
